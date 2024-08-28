@@ -8,4 +8,5 @@
 # 7 - Escolher uma musica para a segunda fase
 # 8 - Tentar achar a possivel causa dos travamentos e as vezes crashs do jogo
 # 9 - Criar até no MAX 3 possiveis ideias de armas pro jogo (somente no caso da gente implementar sistema de dificuldade)
-# 10 - *OPCIONAL* Melhorar as animações
+# 10 - Também seria bom colocarmos no padrão MVC pois o código está muito confuso e bagunçado
+# 11 - *OPCIONAL* Melhorar as animações
