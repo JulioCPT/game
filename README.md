@@ -1,4 +1,3 @@
-# game
 # Coisas a Fazer
 # 1 - Arrumar Câmera
 # 2 - Criar botão de retornar ao menu na tela de game over
