@@ -25,8 +25,6 @@ class GameView:
             self.desenhar_texto(texto, posicao)
         pygame.display.flip()
 
-    def desenhar_chao(self,)
-
     def mostrar_highscores(self, highscores):
         self.janela.fill(self.cores["preto"])
         y = 150
