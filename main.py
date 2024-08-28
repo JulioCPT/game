@@ -13,4 +13,7 @@ def main():
         if escolha == "novo_jogo":
             game_controller.iniciar_jogo()
         elif escolha == "highscores":
-            menu_controller.m
+            menu_controller.mostrar_highscores()
+
+if __name__ == "__main__":
+    main()
