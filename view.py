@@ -3,8 +3,6 @@ import pygame
 class GameView:
     def __init__(self, largura, altura):
         pygame.init()
-        largura = 1280
-        altura = 920
         self.janela = pygame.display.set_mode((largura, altura), pygame.RESIZABLE)
         self.fonte_principal = pygame.font.Font(None, 74)
         self.fonte_timer = pygame.font.Font(None, 36)
@@ -27,7 +25,7 @@ class GameView:
             self.desenhar_texto(texto, posicao)
         pygame.display.flip()
 
-    def desenhar_chao(self, )
+    def desenhar_chao(self,)
 
     def mostrar_highscores(self, highscores):
         self.janela.fill(self.cores["preto"])

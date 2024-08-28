@@ -4,7 +4,7 @@ from view import GameView
 
 def main():
     model = HighscoreModel()
-    view = GameView(1280, 720)
+    view = GameView(1280, 920)
     menu_controller = MenuController(view, model)
     game_controller = GameController(view, model)
 
