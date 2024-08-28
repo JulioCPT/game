@@ -17,7 +17,7 @@ PRETO = (0, 0, 0)
 
 # Tamanho da tela
 largura_janela = 1280
-altura_janela = 720
+altura_janela = 920
 janela = pygame.display.set_mode((largura_janela, altura_janela))
 
 # Fonte
