@@ -12,6 +12,8 @@ class GameView:
             "vermelho": (255, 0, 0),
             "verde": (0, 255, 0),
         }
+        self.fundo = pygame.image.load("Floor.png").convert()  # Carregar a imagem do fundo
+        self.fundo = pygame.transform.scale(self.fundo, (largura, altura))
 
     def desenhar_texto(self, texto, posicao, tamanho_fonte=74, cor="branco"):
         fonte = pygame.font.Font(None, tamanho_fonte)
@@ -44,5 +46,5 @@ class GameView:
 
     def desenhar_game_over(self, tempo_sobrevivido):
         self.janela.fill(self.cores["preto"])
-        self.desenhar_texto("Game Over", (640, 360), tamanho_fonte=72)
-        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (640, 460), tamanho_fonte=50)
+        self.desenhar_texto("Game Over", (520, 360), tamanho_fonte=72)
+        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (460, 460), tamanho_fonte=50)

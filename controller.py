@@ -55,6 +55,9 @@ class GameController:
         self.player = Player(self.todos_sprites, self.sprites_inimigos)
 
     def iniciar_jogo(self):
+        self.todos_sprites.empty()  # Limpa todos os sprites da última sessão
+        self.sprites_inimigos.empty()  # Limpa todos os inimigos da última sessão
+        self.player = Player(self.todos_sprites, self.sprites_inimigos)  # Cria um novo player
         self.todos_sprites.add(self.player)
         tempo_inicio = pygame.time.get_ticks()
         relogio = pygame.time.Clock()
@@ -95,6 +98,18 @@ class GameController:
                 running = False
                 self.model.save_highscore(tempo_decorrido)
                 self.view.desenhar_game_over(tempo_decorrido)
+                pygame.display.flip()
+
+                game_over_time = pygame.time.get_ticks()
+                while pygame.time.get_ticks() - game_over_time < 3000:  # Espera por 3 segundos
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+
+        # Resetar o estado do jogo para o próximo novo jogo
+        self.todos_sprites.empty()
+        self.sprites_inimigos.empty()
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, todos_sprites, sprites_inimigos):
