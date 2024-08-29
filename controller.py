@@ -45,6 +45,31 @@ class MenuController:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         # Voltar ao menu se o usuário clicar
                         return
+                    
+            
+class Camera:
+    def __init__(self, largura, altura):
+        self.camera = pygame.Rect(0, 0, largura, altura)
+        self.largura = largura
+        self.altura = altura
+
+    def aplicar(self, rect):
+        return rect.move(self.camera.topleft)
+
+
+    def centralizar(self, target):
+        x = -target.rect.centerx + int(self.largura / 2)
+        y = -target.rect.centery + int(self.altura / 2)
+
+        # Limite para a câmera não sair dos limites do mapa
+        x = min(0, x)  # lado esquerdo
+        y = min(0, y)  # lado superior
+        x = max(-(self.largura - 1280), x)  # lado direito
+        y = max(-(self.altura - 720), y)  # lado inferior
+
+        self.camera = pygame.Rect(x, y, self.largura, self.altura)
+
+
 
 class GameController:
     def __init__(self, view, model):
@@ -53,9 +78,12 @@ class GameController:
         self.todos_sprites = pygame.sprite.Group()
         self.sprites_inimigos = pygame.sprite.Group()
         self.player = Player(self.todos_sprites, self.sprites_inimigos)
+        self.camera = Camera(1280 * 2, 720 * 2)
 
     def iniciar_jogo(self):
         self.todos_sprites.add(self.player)
+        fundo = pygame.image.load("C:/Users/Aluno/Documents/game/Floor.png").convert()
+        fundo = pygame.transform.scale(fundo, (1280 * 2, 720 * 2))
         tempo_inicio = pygame.time.get_ticks()
         relogio = pygame.time.Clock()
         running = True
@@ -67,6 +95,7 @@ class GameController:
 
             teclas = pygame.key.get_pressed()
             self.player.mover(teclas)
+            self.camera.centralizar(self.player)
 
             colisoes = pygame.sprite.spritecollide(self.player, self.sprites_inimigos, True)
             for inimigo in colisoes:
@@ -81,11 +110,12 @@ class GameController:
 
             self.player.vida = max(0, min(self.player.vida, 100))
             tempo_decorrido = (tempo_atual - tempo_inicio) // 1000
+            self.view.janela.blit(fundo, self.camera.aplicar(fundo.get_rect()))
 
-            self.view.janela.fill(self.view.cores["preto"])
+            
             for sprite in self.todos_sprites:
-                sprite.update()
-                self.view.janela.blit(sprite.image, sprite.rect)
+                sprite.draw(self.view.janela, self.camera)
+                
             self.view.desenhar_barra_de_vida(self.player.vida)
 
             pygame.display.flip()
@@ -128,9 +158,10 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.velocidade_x
         self.rect.y += self.velocidade_y
 
-    def update(self):
-        self.rect.x += self.velocidade_x
-        self.rect.y += self.velocidade_y
+    def draw(self, surface, camera):
+        # Desenhar o jogador na tela, ajustando a posição com base na câmera
+        surface.blit(self.image, camera.aplicar(self.rect))
+
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, player):
@@ -150,3 +181,7 @@ class Enemy(pygame.sprite.Sprite):
             velocidade = 8
             self.rect.x += (direcao_x / distancia) * velocidade
             self.rect.y += (direcao_y / distancia) * velocidade
+
+    def draw(self, surface, camera):
+        # Desenhar o inimigo na tela, ajustando a posição com base na câmera
+        surface.blit(self.image, camera.aplicar(self.rect))
