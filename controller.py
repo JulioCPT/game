@@ -35,8 +35,16 @@ class MenuController:
                         sys.exit()
 
     def mostrar_highscores(self):
-        highscores = self.model.get_highscores()
-        self.view.mostrar_highscores(highscores)
+            highscores = self.model.get_highscores()
+            while True:
+                self.view.mostrar_highscores(highscores)
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        # Voltar ao menu se o usuário clicar
+                        return
 
 class GameController:
     def __init__(self, view, model):

@@ -17,7 +17,6 @@ class GameView:
         fonte = pygame.font.Font(None, tamanho_fonte)
         texto_renderizado = fonte.render(texto, True, self.cores[cor])
         self.janela.blit(texto_renderizado, posicao)
-        pygame.display.flip()
 
     def exibir_menu(self, opcoes):
         self.janela.fill(self.cores["preto"])
