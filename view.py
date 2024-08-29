@@ -28,7 +28,7 @@ class GameView:
         self.janela.fill(self.cores["preto"])
         y = 250
         for i, highscore in enumerate(highscores):
-            texto = f"{i + 1}: {highscore['tempo']}s"
+            texto = f"{i + 1}: {highscore['nome']} - {highscore['tempo']}s"
             self.desenhar_texto(texto, (580, y), tamanho_fonte=50)
             y += 60
         pygame.display.flip()

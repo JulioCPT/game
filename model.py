@@ -9,6 +9,6 @@ class HighscoreModel:
     def get_highscores(self, limit=10):
         return list(self.collection.find().sort("tempo", pymongo.DESCENDING).limit(limit))
 
-    def save_highscore(self, tempo):
-        self.collection.insert_one({"tempo": tempo})
+    def save_highscore(self,nome,tempo):
+        self.collection.insert_one({"nome": nome, "tempo": tempo})
 

@@ -54,11 +54,47 @@ class GameController:
         self.sprites_inimigos = pygame.sprite.Group()
         self.player = Player(self.todos_sprites, self.sprites_inimigos)
 
+    
+    def obter_nome_do_jogador(self):
+        nome_jogador = ""
+        fonte = pygame.font.Font(None, 74)
+        relogio = pygame.time.Clock()
+        
+        entrada_ativa = True
+        while entrada_ativa:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:  # Pressiona Enter para confirmar o nome
+                        entrada_ativa = False
+                    elif event.key == pygame.K_BACKSPACE:  # Backspace para apagar o último caractere
+                        nome_jogador = nome_jogador[:-1]
+                    else:
+                        nome_jogador += event.unicode  # Adiciona o caractere digitado ao nome
+
+            # Desenhar a tela de entrada
+            self.view.janela.fill(self.view.cores["preto"])
+            texto = fonte.render("Digite seu nome:", True, self.view.cores["branco"])
+            self.view.janela.blit(texto, (640 - texto.get_width() // 2, 300))
+            
+            texto_nome = fonte.render(nome_jogador, True, self.view.cores["branco"])
+            self.view.janela.blit(texto_nome, (640 - texto_nome.get_width() // 2, 400))
+            
+            pygame.display.flip()
+            relogio.tick(30)
+
+        return nome_jogador
+
     def iniciar_jogo(self):
         self.todos_sprites.add(self.player)
         tempo_inicio = pygame.time.get_ticks()
         relogio = pygame.time.Clock()
         running = True
+        nome_jogador = self.obter_nome_do_jogador()
+
+
 
         while running:
             for event in pygame.event.get():
@@ -93,8 +129,9 @@ class GameController:
 
             if self.player.vida == 0:
                 running = False
-                self.model.save_highscore(tempo_decorrido)
+                self.model.save_highscore(nome_jogador, tempo_decorrido)
                 self.view.desenhar_game_over(tempo_decorrido)
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, todos_sprites, sprites_inimigos):
