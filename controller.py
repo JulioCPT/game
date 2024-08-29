@@ -117,7 +117,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("Alucard.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (80, 80))
         self.rect = self.image.get_rect()
-        self.rect.center = (640, 360)
+        self.rect.center = (630, 380)
         self.velocidade_x = 0
         self.velocidade_y = 0
         self.vida = 100
