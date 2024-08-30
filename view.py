@@ -46,5 +46,5 @@ class GameView:
 
     def desenhar_game_over(self, tempo_sobrevivido):
         self.janela.fill(self.cores["preto"])
-        self.desenhar_texto("Game Over", (520, 360), tamanho_fonte=72)
-        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (460, 460), tamanho_fonte=50)
+        self.desenhar_texto("Game Over", (490, 360), tamanho_fonte=72)
+        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (430, 460), tamanho_fonte=50)
