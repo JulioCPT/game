@@ -13,9 +13,9 @@ class MenuController:
     def iniciar_menu(self):
         while True:
             opcoes = {
-                "Novo Jogo": (485, 300),
-                "Highscores": (480, 400),
-                "Sair": (560, 500)
+                "Novo Jogo": (575, 300),
+                "Highscores": (570, 400),
+                "Sair": (650, 500)
             }
             self.view.exibir_menu(opcoes)
 
@@ -78,10 +78,10 @@ class GameController:
             # Desenhar a tela de entrada
             self.view.janela.fill(self.view.cores["preto"])
             texto = fonte.render("Digite seu nome:", True, self.view.cores["branco"])
-            self.view.janela.blit(texto, (640 - texto.get_width() // 2, 300))
+            self.view.janela.blit(texto, (680 - texto.get_width() // 2, 300))
             
             texto_nome = fonte.render(nome_jogador, True, self.view.cores["branco"])
-            self.view.janela.blit(texto_nome, (640 - texto_nome.get_width() // 2, 400))
+            self.view.janela.blit(texto_nome, (680 - texto_nome.get_width() // 2, 400))
             
             pygame.display.flip()
             relogio.tick(30)
@@ -136,6 +136,21 @@ class GameController:
                 running = False
                 self.model.save_highscore(nome_jogador, tempo_decorrido)
                 self.view.desenhar_game_over(tempo_decorrido)
+                pygame.display.flip()
+             
+                game_over_time = pygame.time.get_ticks()
+                while pygame.time.get_ticks() - game_over_time < 3000:  # Espera por 3 segundos
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            sys.exit()
+
+        # Resetar o estado do jogo para o próximo novo jogo
+        self.todos_sprites.empty()
+        self.sprites_inimigos.empty()
+                
+
+                
 
 
 class Player(pygame.sprite.Sprite):
@@ -144,7 +159,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("Alucard.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (80, 80))
         self.rect = self.image.get_rect()
-        self.rect.center = (640, 360)
+        self.rect.center = (700, 390)
         self.velocidade_x = 0
         self.velocidade_y = 0
         self.vida = 100
@@ -192,3 +207,6 @@ class Enemy(pygame.sprite.Sprite):
             velocidade = 8
             self.rect.x += (direcao_x / distancia) * velocidade
             self.rect.y += (direcao_y / distancia) * velocidade
+
+    
+    
