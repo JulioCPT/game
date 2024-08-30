@@ -34,6 +34,7 @@ class MenuController:
                         pygame.quit()
                         sys.exit()
 
+
     def mostrar_highscores(self):
             highscores = self.model.get_highscores()
             while True:
@@ -86,8 +87,12 @@ class GameController:
             relogio.tick(30)
 
         return nome_jogador
+    
 
     def iniciar_jogo(self):
+        self.todos_sprites.empty()  # Limpa todos os sprites da última sessão
+        self.sprites_inimigos.empty()  # Limpa todos os inimigos da última sessão
+        self.player = Player(self.todos_sprites, self.sprites_inimigos)  # Cria um novo player
         self.todos_sprites.add(self.player)
         tempo_inicio = pygame.time.get_ticks()
         relogio = pygame.time.Clock()
