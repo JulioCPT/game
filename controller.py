@@ -14,7 +14,7 @@ class MenuController:
         while True:
             opcoes = {
                 "Novo Jogo": (485, 300),
-                "Highscores": (480, 400),
+                "highscores": (480, 400),
                 "Sair": (560, 500)
             }
             self.view.exibir_menu(opcoes)
