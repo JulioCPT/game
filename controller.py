@@ -13,9 +13,9 @@ class MenuController:
     def iniciar_menu(self):
         while True:
             opcoes = {
-                "Novo Jogo": (485, 300),
-                "Highscores": (480, 400),
-                "Sair": (560, 500)
+                "Novo Jogo": (575, 300),
+                "Highscores": (570, 400),
+                "Sair": (650, 500)
             }
             self.view.exibir_menu(opcoes)
 
@@ -117,7 +117,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("Alucard.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (80, 80))
         self.rect = self.image.get_rect()
-        self.rect.center = (630, 380)
+        self.rect.center = (700, 390)
         self.velocidade_x = 0
         self.velocidade_y = 0
         self.vida = 100
@@ -150,12 +150,38 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, player):
         super().__init__()
+        self.player = player  # Defina self.player primeiro
+
         self.image = pygame.image.load("padre.png").convert_alpha()
         self.image = pygame.transform.scale(self.image, (60, 60))
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, 1280)
-        self.rect.y = random.randint(0, 720)
-        self.player = player
+
+        # Tamanho da tela
+        screen_width = 1280
+        screen_height = 720
+
+        # Posição do jogador
+        player_x, player_y = self.player.rect.center
+
+        # Definir distância mínima
+        distancia_minima = 200
+
+        # Determinar área segura ao redor do jogador
+        safe_zone = pygame.Rect(
+            max(0, player_x - distancia_minima),
+            max(0, player_y - distancia_minima),
+            min(screen_width, player_x + distancia_minima) - max(0, player_x - distancia_minima),
+            min(screen_height, player_y + distancia_minima) - max(0, player_y - distancia_minima)
+        )
+
+        # Gerar posição fora da zona segura
+        while True:
+            self.rect.x = random.randint(0, screen_width)
+            self.rect.y = random.randint(0, screen_height)
+
+            # Verificar se o inimigo está fora da zona segura
+            if not safe_zone.collidepoint(self.rect.center):
+                break
 
     def update(self):
         direcao_x = self.player.rect.centerx - self.rect.centerx

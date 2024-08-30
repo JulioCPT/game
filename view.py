@@ -31,7 +31,7 @@ class GameView:
         y = 250
         for i, highscore in enumerate(highscores):
             texto = f"{i + 1}: {highscore['tempo']}s"
-            self.desenhar_texto(texto, (580, y), tamanho_fonte=50)
+            self.desenhar_texto(texto, (650, y), tamanho_fonte=50)
             y += 60
         pygame.display.flip()
 
@@ -46,5 +46,5 @@ class GameView:
 
     def desenhar_game_over(self, tempo_sobrevivido):
         self.janela.fill(self.cores["preto"])
-        self.desenhar_texto("Game Over", (490, 360), tamanho_fonte=72)
-        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (430, 460), tamanho_fonte=50)
+        self.desenhar_texto("Game Over", (590, 460), tamanho_fonte=72)
+        self.desenhar_texto(f"Tempo sobrevivido: {tempo_sobrevivido}s", (530, 560), tamanho_fonte=50)
