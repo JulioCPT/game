@@ -28,8 +28,12 @@ class GameView:
         self.janela.fill(self.cores["preto"])
         y = 250
         for i, highscore in enumerate(highscores):
+            if 'nome' not in highscore or 'tempo' not in highscore:
+                print(f"Documento inválido encontrado: {highscore}")
+                continue  # Pule esse documento se for inválido
+
             texto = f"{i + 1}: {highscore['nome']} - {highscore['tempo']}s"
-            self.desenhar_texto(texto, (640, y), tamanho_fonte=50)
+            self.desenhar_texto(texto, (600, y), tamanho_fonte=50)
             y += 60
         pygame.display.flip()
 
