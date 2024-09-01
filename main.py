@@ -14,6 +14,9 @@ def main():
             game_controller.iniciar_jogo()
         elif escolha == "highscores":
             menu_controller.mostrar_highscores()
+        elif escolha == "creditos":
+            menu_controller.mostrar_creditos()
+            
 
 if __name__ == "__main__":
     main()
