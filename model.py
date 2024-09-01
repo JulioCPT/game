@@ -11,4 +11,3 @@ class HighscoreModel:
 
     def save_highscore(self,nome,tempo):
         self.collection.insert_one({"nome": nome, "tempo": tempo})
-
